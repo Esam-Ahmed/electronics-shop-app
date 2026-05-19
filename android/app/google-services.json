@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "748672692206",
+    "project_id": "alwafistore-17dbd",
+    "storage_bucket": "alwafistore-17dbd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748672692206:android:0f903990c05f4d76ec28ff",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1T8tClsBl4rK-NynxvDspkXAt18-6w3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
