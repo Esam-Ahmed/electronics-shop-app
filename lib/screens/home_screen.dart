@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/product.dart';
@@ -32,6 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final store = Provider.of<StoreProvider>(context);
     final products = store.products;
     final categories = store.categories;
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final maxCrossAxisExtent = screenWidth < 600 ? 180.0 : 200.0;
 
     return Scaffold(
       backgroundColor: const Color(0xfff5f7fb),
@@ -117,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           _buildSearchBar(context),
                           const SizedBox(height: 14),
                           SizedBox(
-                            height: 140,
+                            height: MediaQuery.of(context).size.height * 0.25,
                             child: PageView(
                               controller: _promoController,
                               onPageChanged: (i) =>
@@ -166,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 90,
+                            height: MediaQuery.of(context).size.width * 0.2,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount: categories.length,
@@ -187,8 +189,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     children: [
                                       Container(
-                                        width: 64,
-                                        height: 64,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15, // بدلاً من 64
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(16),
@@ -250,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 170,
+                            height: MediaQuery.of(context).size.width * 0.45,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount:
@@ -267,7 +273,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ProductDetailsScreen(product: p)),
                                   ),
                                   child: SizedBox(
-                                    width: 150,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.42,
                                     child: _buildProductCard(p, store),
                                   ),
                                 );
@@ -294,9 +301,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         childCount: products.length,
                       ),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: maxCrossAxisExtent, // ✅ متجاوب
                         childAspectRatio: 0.72,
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
@@ -515,7 +521,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// فئة البحث
 class _SimpleSearchDelegate extends SearchDelegate<String> {
   final StoreProvider store;
   _SimpleSearchDelegate(this.store);

@@ -26,6 +26,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     final store = Provider.of<StoreProvider>(context, listen: false);
 
+    final screenHeight = MediaQuery.of(context).size.height;
+    final imageHeight = screenHeight < 700 ? 250.0 : screenHeight * 0.35;
+    final fontSize = screenHeight < 700 ? 20.0 : 24.0;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_product.title),
@@ -42,7 +46,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Image.network(
                 _product.imageUrl,
                 width: double.infinity,
-                height: 300,
+                height: imageHeight,
                 fit: BoxFit.contain,
                 errorBuilder: (ctx, err, stack) =>
                     const Icon(Icons.broken_image, size: 100),
@@ -58,8 +62,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Text(
                         '${_product.price} \$',
-                        style: const TextStyle(
-                            fontSize: 24,
+                        style: TextStyle(
+                            fontSize: fontSize,
                             fontWeight: FontWeight.bold,
                             color: Colors.green),
                       ),
@@ -91,15 +95,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Expanded(
                         child: ElevatedButton.icon(
                           onPressed: () async {
-                            final success = await store.addToCart(_product.id);
-                            if (!success) {
-                              showLoginDialog(context);
-                              return;
+                            final isLoggedIn = await showLoginDialog(context);
+                            if (isLoggedIn == true) {
+                              await store.addToCart(_product.id);
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('تمت الإضافة للسلة')),
+                                );
+                              }
                             }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('تمت الإضافة للسلة')),
-                            );
                           },
                           icon: const Icon(Icons.add_shopping_cart),
                           label: const Text("إضافة للسلة"),
@@ -113,14 +118,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       const SizedBox(width: 15),
                       IconButton(
                         onPressed: () async {
-                          final success = await store.toggleFav(_product.id);
-                          if (!success) {
-                            showLoginDialog(context);
-                            return;
+                          final isLoggedIn = await showLoginDialog(context);
+                          if (isLoggedIn == true) {
+                            await store.toggleFav(_product.id);
+                            if (mounted) {
+                              setState(() {
+                                _product.isFavorite = !_product.isFavorite;
+                              });
+                            }
                           }
-                          setState(() {
-                            _product.isFavorite = !_product.isFavorite;
-                          });
                         },
                         icon: Icon(
                           _product.isFavorite

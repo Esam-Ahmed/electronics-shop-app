@@ -20,6 +20,9 @@ class CategoryProductsScreen extends StatelessWidget {
           categoryTitle.toLowerCase().trim();
     }).toList();
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth < 600 ? 2 : 3;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('قسم $categoryTitle'),
@@ -44,11 +47,11 @@ class CategoryProductsScreen extends StatelessWidget {
             )
           : GridView.builder(
               padding: const EdgeInsets.all(12),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.75,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 0.72,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
               ),
               itemCount: filteredProducts.length,
               itemBuilder: (ctx, i) {

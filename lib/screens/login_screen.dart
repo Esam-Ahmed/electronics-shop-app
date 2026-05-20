@@ -1,4 +1,3 @@
-// lib/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'register_screen.dart';
@@ -85,6 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final logoSize = screenHeight < 700 ? 80.0 : 100.0;
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -95,15 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-              
                 Image.asset(
                   'assets/images/logo.png',
-                  width: 100,
-                  height: 100,
+                  width: logoSize,
+                  height: logoSize,
                 ),
                 const SizedBox(height: 20),
-
-               
                 const Text(
                   'الوافي ستور',
                   textAlign: TextAlign.center,
@@ -114,8 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-
-                
                 const Text(
                   'مرحباً بعودتك!',
                   textAlign: TextAlign.center,
@@ -125,8 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-
-               
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -160,8 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-
-               
                 TextFormField(
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
@@ -208,8 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 25),
-
-               
                 ElevatedButton(
                   onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
@@ -240,8 +231,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                 ),
                 const SizedBox(height: 15),
-
-                // زر إنشاء حساب جديد
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

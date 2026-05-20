@@ -83,6 +83,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final logoSize = screenHeight < 700 ? 80.0 : 100.0;
+    final titleFontSize = screenHeight < 700 ? 20.0 : 24.0;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -103,14 +107,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Image.asset(
                   'assets/images/logo.png',
-                  width: 100,
-                  height: 100,
+                  width: logoSize,
+                  height: logoSize,
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'أهلاً بك!',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: titleFontSize,
                     fontWeight: FontWeight.bold,
                     color: Colors.indigo,
                   ),

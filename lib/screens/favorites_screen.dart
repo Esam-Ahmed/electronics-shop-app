@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/store_provider.dart';
+import '../store_provider.dart';
 import 'product_details_screen.dart';
 import '../helpers.dart';
 
@@ -54,18 +54,25 @@ class FavoritesScreen extends StatelessWidget {
                 ],
               ),
             )
-          : ListView.builder(
+          : GridView.builder(
               padding: const EdgeInsets.all(12),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent:
+                    MediaQuery.of(context).size.width < 600 ? 180 : 200,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
               itemCount: favItems.length,
               itemBuilder: (ctx, i) {
                 final product = favItems[i];
                 return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: ListTile(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(15),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -75,57 +82,85 @@ class FavoritesScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        product.imageUrl,
-                        width: 55,
-                        height: 55,
-                        fit: BoxFit.cover,
-                        errorBuilder: (ctx, error, stackTrace) => const Icon(
-                          Icons.broken_image,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      product.title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Text(
-                      '${product.price} \$',
-                      style: const TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                        size: 28,
-                      ),
-                      tooltip: 'حذف من المفضلة',
-                      onPressed: () async {
-                        final success = await store.toggleFav(product.id);
-                        if (!success) {
-                          showLoginDialog(context);
-                          return;
-                        }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('تمت الإزالة من المفضلات'),
-                            duration: Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(15),
+                            ),
+                            child: Image.network(
+                              product.imageUrl,
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                              errorBuilder: (ctx, error, stackTrace) =>
+                                  const Icon(
+                                Icons.broken_image,
+                                size: 40,
+                              ),
+                            ),
                           ),
-                        );
-                      },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${product.price} \$',
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                      size: 20,
+                                    ),
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    onPressed: () async {
+                                      final success =
+                                          await store.toggleFav(product.id);
+                                      if (!success) {
+                                        showLoginDialog(context);
+                                        return;
+                                      }
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('تمت الإزالة من المفضلات'),
+                                          duration: Duration(seconds: 1),
+                                          behavior: SnackBarBehavior.floating,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );

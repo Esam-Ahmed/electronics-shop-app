@@ -75,9 +75,10 @@ class CartScreen extends StatelessWidget {
                                 icon: const Icon(Icons.add_circle_outline,
                                     color: Colors.green),
                                 onPressed: () async {
-                                  final success = await store.addToCart(id);
-                                  if (!success) {
-                                    showLoginDialog(context);
+                                  final isLoggedIn =
+                                      await showLoginDialog(context);
+                                  if (isLoggedIn == true) {
+                                    await store.addToCart(id);
                                   }
                                 },
                               ),
@@ -85,10 +86,10 @@ class CartScreen extends StatelessWidget {
                                 icon: const Icon(Icons.remove_circle_outline,
                                     color: Colors.orange),
                                 onPressed: () async {
-                                  final success =
-                                      await store.decreaseCartQuantity(id);
-                                  if (!success) {
-                                    showLoginDialog(context);
+                                  final isLoggedIn =
+                                      await showLoginDialog(context);
+                                  if (isLoggedIn == true) {
+                                    await store.decreaseCartQuantity(id);
                                   }
                                 },
                               ),
@@ -96,10 +97,10 @@ class CartScreen extends StatelessWidget {
                                 icon: const Icon(Icons.delete_outline,
                                     color: Colors.red),
                                 onPressed: () async {
-                                  final success =
-                                      await store.removeFromCart(id);
-                                  if (!success) {
-                                    showLoginDialog(context);
+                                  final isLoggedIn =
+                                      await showLoginDialog(context);
+                                  if (isLoggedIn == true) {
+                                    await store.removeFromCart(id);
                                   }
                                 },
                               ),

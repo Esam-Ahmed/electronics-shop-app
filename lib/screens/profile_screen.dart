@@ -80,6 +80,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseUser = FirebaseAuth.instance.currentUser;
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 600;
+    final avatarRadius = isSmallScreen ? 35.0 : 45.0;
+    final fontSize = isSmallScreen ? 18.0 : 22.0;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('حسابي'),
@@ -120,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         CircleAvatar(
-                          radius: 45,
+                          radius: avatarRadius,
                           backgroundColor: Colors.white,
                           backgroundImage: photoUrl.isNotEmpty
                               ? NetworkImage(photoUrl)
@@ -128,8 +133,8 @@ class ProfileScreen extends StatelessWidget {
                           child: photoUrl.isEmpty
                               ? Text(
                                   name.isNotEmpty ? name[0].toUpperCase() : 'U',
-                                  style: const TextStyle(
-                                    fontSize: 36,
+                                  style: TextStyle(
+                                    fontSize: avatarRadius * 0.8,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.indigo,
                                   ),
@@ -139,8 +144,8 @@ class ProfileScreen extends StatelessWidget {
                         const SizedBox(height: 12),
                         Text(
                           name,
-                          style: const TextStyle(
-                            fontSize: 22,
+                          style: TextStyle(
+                            fontSize: fontSize,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),

@@ -35,6 +35,9 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = Provider.of<StoreProvider>(context, listen: false);
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth < 600 ? 2 : 3;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('التصنيفات'),
@@ -51,8 +54,8 @@ class CategoriesScreen extends StatelessWidget {
             )
           : GridView.builder(
               padding: const EdgeInsets.all(15),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
                 childAspectRatio: 1.1,
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
