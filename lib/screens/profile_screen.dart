@@ -1,7 +1,7 @@
 // lib/screens/profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'user_model.dart';
+import '../models/user_model.dart';
 import 'favorites_screen.dart';
 
 class ProfileScreen extends StatelessWidget {

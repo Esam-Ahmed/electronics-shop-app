@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'product.dart';
-import 'store_provider.dart';
+import '../models/product.dart';
+import '../store_provider.dart';
 import 'cart_screen.dart';
 import 'product_details_screen.dart';
 import 'category_products_screen.dart';
 import 'categories_screen.dart';
-import 'helpers.dart';
+import '../helpers.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

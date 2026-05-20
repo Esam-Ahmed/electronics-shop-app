@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'product.dart';
-import 'store_provider.dart';
-import 'helpers.dart';
+import '../models/product.dart';
+import '../store_provider.dart';
+import '../helpers.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main_navigation_screen.dart';
+import '../screens/main_navigation_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});

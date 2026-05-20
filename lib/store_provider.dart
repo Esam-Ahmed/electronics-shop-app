@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'product.dart';
-import 'favorite_service.dart';
-import 'cart_service.dart';
+import 'models/product.dart';
+import 'services/favorite_service.dart';
+import 'services/cart_service.dart';
 
 class StoreProvider with ChangeNotifier {
   List<Product> _products = [];
