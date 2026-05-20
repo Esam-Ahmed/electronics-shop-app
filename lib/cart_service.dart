@@ -1,4 +1,4 @@
-// lib/services/cart_service.dart
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,7 +11,6 @@ class CartService {
   static DocumentReference get _cartDoc =>
       _db.collection('users').doc(_userId).collection('cart').doc('my_cart');
 
-  // حفظ السلة بالكامل
   static Future<void> saveCart(Map<String, int> cart) async {
     if (_userId == null) return;
 
@@ -29,7 +28,6 @@ class CartService {
     }
   }
 
-  // إضافة منتج
   static Future<void> addItem(String productId) async {
     if (_userId == null) return;
 
@@ -44,7 +42,6 @@ class CartService {
     await saveCart(items);
   }
 
-  // تقليل الكمية
   static Future<void> decreaseItem(String productId) async {
     if (_userId == null) return;
 
@@ -63,7 +60,6 @@ class CartService {
     }
   }
 
-  // حذف منتج
   static Future<void> removeItem(String productId) async {
     if (_userId == null) return;
 
@@ -75,7 +71,6 @@ class CartService {
     await saveCart(items);
   }
 
-  // الاستماع للسلة (real-time + offline)
   static Stream<Map<String, int>> streamCart() {
     if (_userId == null) return Stream.value({});
 
@@ -87,7 +82,6 @@ class CartService {
     });
   }
 
-  // تفريغ السلة بعد الشراء
   static Future<void> clearCart() async {
     if (_userId == null) return;
     await _cartDoc

@@ -18,7 +18,6 @@ class Product {
     this.isFavorite = false,
   });
 
-  // من Firestore إلى كود Dart
   factory Product.fromFirestore(Map<String, dynamic> data, String id) {
     return Product(
       id: id,
@@ -30,7 +29,6 @@ class Product {
     );
   }
 
-  // من كود Dart إلى Firestore
   Map<String, dynamic> toMap() {
     return {
       'title': title,

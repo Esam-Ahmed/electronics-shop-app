@@ -1,17 +1,13 @@
-// lib/utils/helpers.dart
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login_screen.dart';
 
-/// يعرض حوار يطلب من المستخدم تسجيل الدخول عند الحاجة.
-/// - يعيد Future<bool?>: true إذا تم تسجيل الدخول بنجاح، false أو null إذا لم يسجل.
 Future<bool?> showLoginDialog(BuildContext context) async {
-  // إذا المستخدم مسجل بالفعل لا نعرض الحوار
   if (FirebaseAuth.instance.currentUser != null) {
     return true;
   }
 
-  // أولاً: اسأل المستخدم إذا يريد الانتقال لتسجيل الدخول
   final shouldLogin = await showDialog<bool>(
     context: context,
     barrierDismissible: false,
@@ -37,7 +33,6 @@ Future<bool?> showLoginDialog(BuildContext context) async {
 
   if (shouldLogin != true) return false;
 
-  // افتح شاشة الدخول وانتظر نتيجتها (login screen يجب أن تعيد true عند نجاح الدخول)
   final result = await Navigator.push<bool>(
     context,
     MaterialPageRoute(builder: (context) => const LoginScreen()),

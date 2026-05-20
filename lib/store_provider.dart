@@ -1,4 +1,3 @@
-// lib/providers/store_provider.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +21,6 @@ class StoreProvider with ChangeNotifier {
     _listenToCart();
   }
 
-  // التحقق من تسجيل الدخول
   bool get isLoggedIn => FirebaseAuth.instance.currentUser != null;
 
   void _listenToProducts() {
@@ -84,7 +82,6 @@ class StoreProvider with ChangeNotifier {
     });
   }
 
-  // عمليات السلة (مع التحقق من تسجيل الدخول)
   Future<bool> addToCart(String id) async {
     if (!isLoggedIn) return false;
     await CartService.addItem(id);
@@ -109,7 +106,6 @@ class StoreProvider with ChangeNotifier {
     return true;
   }
 
-  // عمليات المفضلات (مع التحقق من تسجيل الدخول)
   Future<bool> toggleFav(String id) async {
     if (!isLoggedIn) return false;
     await FavoriteService.toggle(id);

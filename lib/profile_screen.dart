@@ -103,7 +103,6 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  // بطاقة الملف الشخصي
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
@@ -171,10 +170,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // قسم الإحصائيات
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -198,10 +194,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // قائمة الخيارات
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -280,10 +273,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // زر تسجيل الخروج
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
@@ -368,17 +358,17 @@ class ProfileScreen extends StatelessWidget {
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text('عن التطبيق'),
-        content: Column(
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.storefront, size: 60, color: Colors.indigo),
-            const SizedBox(height: 10),
-            const Text('الوافي ستور',
+            Icon(Icons.storefront, size: 60, color: Colors.indigo),
+            SizedBox(height: 10),
+            Text('الوافي ستور',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 5),
-            const Text('الإصدار 1.0.0', style: TextStyle(color: Colors.grey)),
-            const SizedBox(height: 10),
-            const Text(
+            SizedBox(height: 5),
+            Text('الإصدار 1.0.0', style: TextStyle(color: Colors.grey)),
+            SizedBox(height: 10),
+            Text(
               'تطبيق متجر إلكترونيات متكامل\nيتيح لك التسوق بسهولة وأمان',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14),

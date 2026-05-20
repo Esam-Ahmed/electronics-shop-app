@@ -31,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text.trim(),
       );
 
-      // عند النجاح: أغلق شاشة الدخول مع إرجاع true
       if (mounted) Navigator.pop(context, true);
     } on FirebaseAuthException catch (e) {
       String message = 'حدث خطأ ما، يرجى المحاولة لاحقاً';

@@ -27,7 +27,6 @@ class CheckoutScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // قسم ملخص المنتجات
                   _buildSectionTitle(Icons.shopping_basket, 'ملخص المشتريات'),
                   const SizedBox(height: 10),
                   Container(
@@ -68,10 +67,7 @@ class CheckoutScreen extends StatelessWidget {
                       },
                     ),
                   ),
-
                   const SizedBox(height: 30),
-
-                  // قسم تفاصيل الفاتورة
                   _buildSectionTitle(Icons.receipt_long, 'تفاصيل الدفع'),
                   const SizedBox(height: 10),
                   Container(
@@ -97,10 +93,7 @@ class CheckoutScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 30),
-
-                  // تنبيه أن الميزة تجريبية
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -108,8 +101,8 @@ class CheckoutScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.orange.withOpacity(0.3)),
                     ),
-                    child: Row(
-                      children: const [
+                    child: const Row(
+                      children: [
                         Icon(Icons.info_outline, color: Colors.orange),
                         SizedBox(width: 10),
                         Expanded(
@@ -128,8 +121,6 @@ class CheckoutScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // زر التأكيد (للعرض فقط)
           Container(
             padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
@@ -165,7 +156,6 @@ class CheckoutScreen extends StatelessWidget {
     );
   }
 
-  // ويدجت مساعد لعناوين الأقسام
   Widget _buildSectionTitle(IconData icon, String title) {
     return Row(
       children: [
@@ -180,7 +170,6 @@ class CheckoutScreen extends StatelessWidget {
     );
   }
 
-  // ويدجت مساعد لصفوف الأسعار
   Widget _buildPriceRow(String label, String value, {bool isTotal = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),

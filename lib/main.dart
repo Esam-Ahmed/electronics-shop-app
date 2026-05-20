@@ -16,7 +16,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // تفعيل التخزين المؤقت لـ Firestore (Offline support)
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
     cacheSizeBytes: 100 * 1024 * 1024, // 100 MB
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      // AuthWrapper الآن يعرض MainNavigationScreen دائماً (حتى يستطيع الزائر التصفح)
       home: const AuthWrapper(),
       routes: {
         '/login': (context) => const LoginScreen(),

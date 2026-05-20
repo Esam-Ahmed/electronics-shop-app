@@ -30,11 +30,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: _passwordController.text.trim(),
       );
 
-      // تحديث اسم المستخدم في Firebase
       await userCredential.user?.updateDisplayName(_nameController.text.trim());
       await userCredential.user?.reload();
 
-      // حفظ المستخدم في Firestore
       await UserService.createUser(
           userCredential.user!, _nameController.text.trim());
 
@@ -46,7 +44,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             duration: Duration(seconds: 2),
           ),
         );
-        // إرجاع true للمتصل (مثلاً MainNavigationScreen) للدلالة على نجاح التسجيل
         Navigator.pop(context, true);
       }
     } on FirebaseAuthException catch (e) {
@@ -104,7 +101,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // ✅ شعار المتجر
                 Image.asset(
                   'assets/images/logo.png',
                   width: 100,
@@ -127,7 +123,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
-
                 TextFormField(
                   controller: _nameController,
                   textInputAction: TextInputAction.next,
@@ -151,7 +146,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -178,7 +172,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-
                 TextFormField(
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
@@ -215,7 +208,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-
                 TextFormField(
                   controller: _confirmPasswordController,
                   obscureText: !_isConfirmPasswordVisible,
@@ -254,7 +246,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 30),
-
                 ElevatedButton(
                   onPressed: _isLoading ? null : _register,
                   style: ElevatedButton.styleFrom(
@@ -284,7 +275,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                 ),
                 const SizedBox(height: 20),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -1,4 +1,3 @@
-// lib/screens/main_navigation_screen.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
@@ -17,7 +16,6 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
 
-  // ✅ عرض حوار تسجيل الدخول (يُستخدم أيضاً عند محاولة الوصول للمحتوى المحجوب)
   void _showLoginDialog() {
     showDialog(
       context: context,
@@ -56,7 +54,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       builder: (context, snapshot) {
         final bool isLoggedIn = snapshot.hasData && snapshot.data != null;
 
-        // نكوّن قائمة الشاشات وعناصر البوتوم نافي بناءً على حالة الدخول
         final List<Widget> screens = [
           const HomeScreen(),
           const CategoriesScreen(),
@@ -76,7 +73,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: Icon(Icons.person), label: 'حسابي'),
         ];
 
-        // إذا تغيّرت عدد العناصر بحيث الـ index الحالي أصبح خارج النطاق، نرجعه 0
         if (_selectedIndex >= screens.length) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) setState(() => _selectedIndex = 0);
@@ -130,9 +126,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               type: BottomNavigationBarType.fixed,
               items: navItems,
               onTap: (index) {
-                // إذا ضغط الزائر على "المفضلات" ولم يكن مسجلاً => اطلب الدخول
-                // ملاحظة: ترتيب العناصر يختلف حسب isLoggedIn لذلك نتعامل بالاسماء أو بالموقع المتوقع.
-                // هنا نستخدم الفكرة: إذا الزر الذي ضغطه هو الأخير والـ isLoggedIn=false فإنه يطابق المفضلات (index 2)
                 if (!isLoggedIn && index == 2) {
                   _showLoginDialog();
                   return;

@@ -118,7 +118,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             showLoginDialog(context);
                             return;
                           }
-                          // ✅ تحديث واجهة المستخدم
                           setState(() {
                             _product.isFavorite = !_product.isFavorite;
                           });
