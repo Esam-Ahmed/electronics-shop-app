@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
-    show kIsWeb; // أضفنا هذا السطر للتحقق من الويب
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,19 +10,18 @@ import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 
 void main() async {
-  // التأكد من تهيئة روابط فلاتر
+  
   WidgetsFlutterBinding.ensureInitialized();
 
-  // تهيئة الفايربيز
+ 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // إعدادات الـ Firestore مع شرط عدم التشغيل على الويب
   if (!kIsWeb) {
     FirebaseFirestore.instance.settings = const Settings(
       persistenceEnabled: true,
-      cacheSizeBytes: 100 * 1024 * 1024, // 100 MB
+      cacheSizeBytes: 100 * 1024 * 1024, 
     );
   }
 
