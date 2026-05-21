@@ -4,21 +4,32 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'models/product.dart';
 import 'services/favorite_service.dart';
 import 'services/cart_service.dart';
+import 'dart:async';
 
 class StoreProvider with ChangeNotifier {
   List<Product> _products = [];
   Map<String, int> _cart = {};
   Set<String> _favorites = {};
   bool _isLoading = true;
-
+  StreamSubscription? _favSubscription;
+  StreamSubscription? _cartSubscription;
   StoreProvider() {
     _init();
   }
 
   void _init() {
     _listenToProducts();
-    _listenToFavorites();
-    _listenToCart();
+
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        _listenToFavorites();
+        _listenToCart();
+      } else {
+        _favSubscription?.cancel();
+        _cartSubscription?.cancel();
+        resetLocalDataOnLogout();
+      }
+    });
   }
 
   bool get isLoggedIn => FirebaseAuth.instance.currentUser != null;
@@ -46,7 +57,8 @@ class StoreProvider with ChangeNotifier {
   }
 
   void _listenToFavorites() {
-    FavoriteService.stream().listen((favorites) {
+    _favSubscription?.cancel();
+    _favSubscription = FavoriteService.stream().listen((favorites) {
       _favorites = favorites;
       for (var product in _products) {
         product.isFavorite = _favorites.contains(product.id);
@@ -56,13 +68,13 @@ class StoreProvider with ChangeNotifier {
   }
 
   void _listenToCart() {
-    CartService.streamCart().listen((cart) {
+    _cartSubscription?.cancel();
+    _cartSubscription = CartService.streamCart().listen((cart) {
       _cart = cart;
       notifyListeners();
     });
   }
 
-  // Getters
   List<Product> get products => _products;
   Map<String, int> get cart => _cart;
   bool get isLoading => _isLoading;
@@ -110,5 +122,22 @@ class StoreProvider with ChangeNotifier {
     if (!isLoggedIn) return false;
     await FavoriteService.toggle(id);
     return true;
+  }
+
+  void resetLocalDataOnLogout() {
+    _cart = {};
+    _favorites = {};
+
+    for (var product in _products) {
+      product.isFavorite = false;
+    }
+
+    notifyListeners();
+  }
+
+  void dispose() {
+    _favSubscription?.cancel();
+    _cartSubscription?.cancel();
+    super.dispose();
   }
 }

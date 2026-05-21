@@ -72,8 +72,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             const BottomNavigationBarItem(
                 icon: Icon(Icons.person), label: 'حسابي'),
         ];
-
-        if (_selectedIndex >= screens.length) {
+        int currentIndex = _selectedIndex;
+        if (currentIndex >= screens.length) {
+          currentIndex = 0;
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) setState(() => _selectedIndex = 0);
           });
@@ -101,7 +102,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             foregroundColor: Colors.white,
             elevation: 0,
           ),
-          body: screens[_selectedIndex],
+          body: screens[currentIndex],
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -118,7 +119,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               ],
             ),
             child: BottomNavigationBar(
-              currentIndex: _selectedIndex,
+              currentIndex: currentIndex,
               selectedItemColor: Colors.indigo,
               unselectedItemColor: Colors.grey,
               backgroundColor: Colors.transparent,

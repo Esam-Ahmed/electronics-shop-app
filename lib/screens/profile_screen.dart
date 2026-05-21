@@ -1,15 +1,27 @@
-// lib/screens/profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import '../models/user_model.dart';
 import 'favorites_screen.dart';
+import '../store_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   Future<void> _signOut(BuildContext context) async {
-    await UserService.updateLogoutTime();
-    await FirebaseAuth.instance.signOut();
+    try {
+      await FirebaseAuth.instance.signOut();
+
+      if (context.mounted) {
+        context.read<StoreProvider>().resetLocalDataOnLogout();
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('حدث خطأ: $e')),
+        );
+      }
+    }
   }
 
   Future<void> _showEditNameDialog(

@@ -302,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         childCount: products.length,
                       ),
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: maxCrossAxisExtent, // ✅ متجاوب
+                        maxCrossAxisExtent: maxCrossAxisExtent,
                         childAspectRatio: 0.72,
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
@@ -448,11 +448,39 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.red,
                         ),
                         onPressed: () async {
-                          final isLoggedIn = await showLoginDialog(context);
-                          if (isLoggedIn == true) {
+                          final isLoggedIn = store.isLoggedIn;
+                          if (isLoggedIn) {
+                            final wasfav = product.isFavorite;
                             await store.toggleFav(product.id);
                             if (mounted) {
                               setState(() {});
+                              if (!wasfav && product.isFavorite) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('تمت الإضافة إلى المفضلة'),
+                                    duration: Duration(seconds: 1),
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
+                            }
+                            return;
+                          }
+                          final afterLogin = await showLoginDialog(context);
+                          if (afterLogin == true && store.isLoggedIn) {
+                            final wasfav = product.isFavorite;
+                            await store.toggleFav(product.id);
+                            if (mounted) {
+                              setState(() {});
+                              if (!wasfav && product.isFavorite) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('تمت الإضافة إلى المفضلة'),
+                                    duration: Duration(seconds: 1),
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
                             }
                           }
                         },
@@ -487,8 +515,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: () async {
-                        final isLoggedIn = await showLoginDialog(context);
-                        if (isLoggedIn == true) {
+                        final isLoggedIn = store.isLoggedIn;
+                        if (isLoggedIn) {
+                          await store.addToCart(product.id);
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('تمت الإضافة للسلة'),
+                                duration: Duration(seconds: 1),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          }
+                          return;
+                        }
+                        final afterLogin = await showLoginDialog(context);
+                        if (afterLogin == true && store.isLoggedIn) {
                           await store.addToCart(product.id);
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(

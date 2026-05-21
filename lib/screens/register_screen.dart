@@ -132,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'الاسم الكامل',
-                    hintText: 'مثال: أحمد محمد',
+                    hintText: 'مثال: عصام احمد',
                     prefixIcon: const Icon(Icons.person_outline),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12)),
