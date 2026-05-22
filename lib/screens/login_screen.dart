@@ -35,6 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
       String message = 'حدث خطأ ما، يرجى المحاولة لاحقاً';
 
       switch (e.code) {
+        case 'invalid-credential':
+          message = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+          break;
         case 'user-not-found':
           message = 'لا يوجد حساب مرتبط بهذا البريد الإلكتروني';
           break;
@@ -43,12 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
           break;
         case 'invalid-email':
           message = 'صيغة البريد الإلكتروني غير صحيحة';
-          break;
-        case 'user-disabled':
-          message = 'تم تعطيل هذا الحساب، يرجى التواصل مع الدعم';
-          break;
-        case 'too-many-requests':
-          message = 'تم تعطيل الحساب مؤقتاً بسبب كثرة المحاولات، حاول لاحقاً';
           break;
         case 'network-request-failed':
           message = 'لا يوجد اتصال بالإنترنت، يرجى التحقق من الشبكة';

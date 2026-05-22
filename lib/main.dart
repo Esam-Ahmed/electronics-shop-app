@@ -15,6 +15,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: 100 * 1024 * 1024, // 100 MB
+  );
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => StoreProvider(),

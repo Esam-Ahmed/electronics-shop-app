@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             }),
                           ),
-                          const SizedBox(height: 18),
+                          const SizedBox(height: 19),
                           const Text('التصنيفات',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
@@ -191,10 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.15, // بدلاً من 64
+                                                0.13, // بدلاً من 64
                                         height:
                                             MediaQuery.of(context).size.width *
-                                                0.15,
+                                                0.13,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(16),
@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.45,
+                            height: MediaQuery.of(context).size.width * 0.65,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount:
@@ -401,9 +401,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildProductCard(Product product, StoreProvider store) {
     return Card(
-      elevation: 4,
+      elevation: 1,
       shadowColor: Colors.black.withOpacity(0.1),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
@@ -433,8 +433,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 0,
+                    right: 0,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -446,6 +446,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ? Icons.favorite
                               : Icons.favorite_border,
                           color: Colors.red,
+                          // size: 26,
                         ),
                         onPressed: () async {
                           final isLoggedIn = store.isLoggedIn;
